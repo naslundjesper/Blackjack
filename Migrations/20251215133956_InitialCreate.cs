@@ -85,7 +85,7 @@ namespace Blackjack.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlayerID = table.Column<int>(type: "int", nullable: false),
                     RoundID = table.Column<int>(type: "int", nullable: false),
-                    DrawnCards = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DrawnCardsJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HandValue = table.Column<int>(type: "int", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false)
                 },

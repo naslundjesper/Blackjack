@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blackjack.Migrations
 {
     [DbContext(typeof(BlackjackDbContext))]
-    [Migration("20251215131141_InitialCreate")]
+    [Migration("20251215133956_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace Blackjack.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -90,7 +90,7 @@ namespace Blackjack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlayerHandID"));
 
-                    b.Property<string>("DrawnCards")
+                    b.Property<string>("DrawnCardsJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

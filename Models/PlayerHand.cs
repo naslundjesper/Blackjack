@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
+
 
 namespace Blackjack.Models
 {
@@ -15,8 +18,17 @@ namespace Blackjack.Models
         public int RoundID { get; set; }
         public Round Round { get; set; } = null!;
 
-        // Refererar till kort i Round.Deck
-        public List<int> DrawnCards { get; set; } = new List<int>();
+        // Lagring i databasen (JSON-text)
+        public string DrawnCardsJson { get; set; } = "[]";
+
+        //Används i koden, inte databasen
+        [NotMapped]
+        public List<int> DrawnCards
+        {
+            get => JsonSerializer.Deserialize<List<int>>(DrawnCardsJson)!;
+            set => DrawnCardsJson = JsonSerializer.Serialize(value);
+        }
+
 
         // Handens totala värde
         public int HandValue { get; set; }
