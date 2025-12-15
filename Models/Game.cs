@@ -16,7 +16,7 @@
         //Anger vilken spelares tur det är
         public int TurnOrder { get; set; }
         //Waiting, finished ex. 
-        public string Status { get; set; }
+        public string Status { get; set; } = null!;
         //Kod för att gå med i lobby
         public string LobbyCode { get; set; } = null!;
        
