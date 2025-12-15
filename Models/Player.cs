@@ -11,10 +11,10 @@ namespace Blackjack.Models
         public string Username { get; set; } = null!;
         public string PasswordHash { get; set; } = null!;
 
-        // Games där spelaren är Player1
+        // Spel där spelaren är Player1
         public ICollection<Game> GamesAsPlayer1 { get; set; } = new List<Game>();
 
-        // Games där spelaren är Player2
+        // Spel där spelaren är Player2
         public ICollection<Game> GamesAsPlayer2 { get; set; } = new List<Game>();
 
         // Alla händer som tillhör spelaren
