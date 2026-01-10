@@ -13,6 +13,9 @@
 
         //Startvärde för HP
         public int StartHP { get; set; }
+        //HP för varje spelare
+        public int Player1HP { get; set; }
+        public int Player2HP { get; set; }
         //Anger vilken spelares tur det är
         public int TurnOrder { get; set; }
         //Waiting, finished ex. 
