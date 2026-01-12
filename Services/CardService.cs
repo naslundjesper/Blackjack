@@ -1,35 +1,55 @@
-﻿namespace Blackjack.Services
+﻿using System;
+
+namespace Blackjack.Services
 {
     public class CardService
     {
-        public List<int> CreateDeck()
+        
+        public int DrawCardFromDeck(byte[] deck)
         {
-            var deck = new List<int>();
-            for (int i = 0; i < 52; i++)
-                deck.Add(i);
+            var random = new Random();
+            int attempts = 0;
+            const int maxCards = 52;
 
-            return deck;
-        }
-
-        public void Shuffle(List<int> deck, int seed)
-        {
-            var rng = new Random(seed);
-
-            for (int i = deck.Count - 1; i > 0; i--)
+            while (attempts < maxCards)
             {
-                int j = rng.Next(i + 1);
-                (deck[i], deck[j]) = (deck[j], deck[i]);
+                // Slumpa ett index mellan 0 och 51
+                int cardIndex = random.Next(0, maxCards);
+
+                // Hitta vilken byte (0-6) och vilken bit i den byten (0-7) som motsvarar kortet
+                int byteIndex = cardIndex / 8;
+                int bitIndex = cardIndex % 8;
+
+                // Kontrollera om biten är 0 (kortet finns kvar i leken)
+                // (1 << bitIndex) skapar en mask, t.ex. 00000100 för bit 2.
+                if ((deck[byteIndex] & (1 << bitIndex)) == 0)
+                {
+                    // Markera kortet som draget genom att sätta biten till 1 med OR-operatorn
+                    deck[byteIndex] |= (byte)(1 << bitIndex);
+
+                    return cardIndex;
+                }
+
+                attempts++;
             }
+
+            throw new InvalidOperationException("Kortleken är tom! Inga fler kort kan dras i denna runda.");
         }
 
-        public int DrawCard(List<int> deck)
+        /// Hjälpmetod för att kontrollera hur många kort som finns kvar i leken.
+        public int GetRemainingCardsCount(byte[] deck)
         {
-            if (deck.Count == 0)
-                throw new InvalidOperationException("Deck is empty");
-
-            int card = deck[0];
-            deck.RemoveAt(0);
-            return card;
+            int count = 0;
+            for (int i = 0; i < 52; i++)
+            {
+                int byteIndex = i / 8;
+                int bitIndex = i % 8;
+                if ((deck[byteIndex] & (1 << bitIndex)) == 0)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
     }
 }

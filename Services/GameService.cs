@@ -4,18 +4,22 @@ namespace Blackjack.Services
 {
     public class GameService
     {
-        public Game CreateGame(int player1Id, int? player2Id = null)
+        
+        public Game CreateNewGame(int p1Id, string lobbyCode)
         {
             return new Game
             {
-                Player1ID = player1Id,
-                Player2ID = player2Id, // Nu som null
+                Player1ID = p1Id,
+                LobbyCode = lobbyCode.ToUpper(),
+
+                // Startvärden för spelet
                 StartHP = 100,
                 Player1HP = 100,
                 Player2HP = 100,
-                TurnOrder = player1Id,
+
+                // Status och Turordning
                 Status = "Waiting",
-                LobbyCode = "TEMP"
+                TurnOrder = p1Id // Spelare 1 börjar alltid
             };
         }
     }

@@ -1,5 +1,6 @@
 using Blackjack.Data;
 using Blackjack.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +17,9 @@ var connString = builder.Configuration.GetConnectionString("DefaultConnection")
 builder.Services.AddDbContext<BlackjackDbContext>(options => options.UseSqlServer(connString));
 
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<CardService>();
 builder.Services.AddScoped<RoundService>();
 builder.Services.AddScoped<BlackjackRuleService>();
-builder.Services.AddScoped<CardService>();
 
 var app = builder.Build();
 
@@ -38,9 +39,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // Mappa rutter
-app.MapControllers(); 
+app.MapControllers();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

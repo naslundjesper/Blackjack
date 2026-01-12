@@ -1,32 +1,29 @@
-using System.Diagnostics;
-using Blackjack.Models;
 using Microsoft.AspNetCore.Mvc;
+using Blackjack.Data;
 
 namespace Blackjack.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly BlackjackDbContext _context;
+        public HomeController(BlackjackDbContext context) { _context = context; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public IActionResult Lobby()
         {
-            _logger = logger;
-        }
+            var id = Request.Cookies["PlayerID"];
+            if (string.IsNullOrEmpty(id)) return RedirectToAction("Login", "Account");
 
-        public IActionResult Index()
-        {
+            ViewBag.PlayerID = id;
+            ViewBag.PlayerName = Request.Cookies["PlayerName"];
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Game(int gameId)
         {
+            ViewBag.PlayerID = Request.Cookies["PlayerID"];
+            ViewBag.PlayerName = Request.Cookies["PlayerName"];
+            ViewBag.GameID = gameId;
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

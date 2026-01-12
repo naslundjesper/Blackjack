@@ -59,13 +59,6 @@
             return 1;
         }
 
-
-        //Bust? 
-        public bool IsBust(List<int> cards)
-        {
-            return CalculateHandValue(cards) > 21;
-        }
-
         //Blackjack?
         public bool IsBlackjack(List<int> cards)
         {
@@ -88,25 +81,6 @@
             if (bust2) return hand1;
 
             return value1 >= value2 ? hand1 : hand2;     // högst vinner
-        }
-
-        //Vem förlorade?
-        public int GetLoserIndex(List<int> hand1, List<int> hand2)
-        {
-            var winner = GetWinningHand(hand1, hand2);
-
-            return winner == hand1 ? 1 : 0;
-        }
-
-        //Hur mycket skada
-        public int CalculateDamage(List<int> winningHand)
-        {
-            int damage = GetLastCardDamageValue(winningHand);
-
-            if (IsBlackjack(winningHand))
-                damage *= 2;
-
-            return damage;
         }
     }
 }

@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Lobby";
+}
+
+<div style="padding: 20px; font-family: sans-serif;">
+    <h1>Välkommen @ViewBag.PlayerName</h1>
+
+    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+        <h3>Skapa ny match</h3>
+        <input type="text" id="createCode" placeholder="Välj en unik kod (t.ex. KALLE123)">
+        <button onclick="createGame()">Skapa & Vänta</button>
+    </div>
+
+    <div style="border: 1px solid #ccc; padding: 15px;">
+        <h3>Gå med i kompisens match</h3>
+        <input type="text" id="joinCode" placeholder="Skriv kompisens kod">
+        <button onclick="joinGame()">Gå med nu</button>
+    </div>
+</div>
+
+<script>
+    async function createGame() {
+        const code = document.getElementById('createCode').value;
+        if (!code) return alert("Du måste välja en kod!");
+
+        const name = "@ViewBag.PlayerName";
+        const res = await fetch(`/api/game/setup?p1Name=${encodeURIComponent(name)}&lobbyCode=${encodeURIComponent(code)}`, {
+            method: 'POST'
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            window.location.href = `/Home/Game?gameId=${data.gameID}`;
+        } else {
+            const err = await res.text();
+            alert("Fel: " + err);
+        }
+    }
+
+    async function joinGame() {
+        const code = document.getElementById('joinCode').value;
+        const pId = "@ViewBag.PlayerID"; // Viktigt: Hämtas från cookies via HomeController
+
+        if (!code) return alert("Skriv in en kod!");
+
+        // Skickar med både code och playerId som query-parametrar för att matcha controllern
+        const res = await fetch(`/api/game/join?code=${encodeURIComponent(code)}&playerId=${pId}`, {
+            method: 'POST'
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            window.location.href = `/Home/Game?gameId=${data.gameID}`;
+        } else {
+            const err = await res.text();
+            alert("Kunde inte gå med: " + err);
+        }
+    }
+</script>
