@@ -1,30 +1,24 @@
-﻿namespace Blackjack.Models
+﻿using System.Collections.Generic;
+
+namespace Blackjack.Models
 {
     public class Game
     {
-        // Unikt ID för varje spel
         public int GameID { get; set; }
 
         public int Player1ID { get; set; }
-        public int Player2ID { get; set; }
+        public int? Player2ID { get; set; } // int? tillåter null
 
         public Player Player1 { get; set; } = null!;
-        public Player Player2 { get; set; } = null!;
+        public Player? Player2 { get; set; }
 
-        //Startvärde för HP
         public int StartHP { get; set; }
-        //HP för varje spelare
         public int Player1HP { get; set; }
         public int Player2HP { get; set; }
-        //Anger vilken spelares tur det är
         public int TurnOrder { get; set; }
-        //Waiting, finished ex. 
-        public string Status { get; set; } = null!;
-        //Kod för att gå med i lobby
+        public string Status { get; set; } = "Waiting";
         public string LobbyCode { get; set; } = null!;
-       
-        //Innehåller alla rundor i spelet
-        public ICollection<Round> Rounds { get; set; } = new List<Round>();
 
+        public ICollection<Round> Rounds { get; set; } = new List<Round>();
     }
 }

@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: blackjack-sql
+    environment:
+      SA_PASSWORD: "Password123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - blackjack-network
+
+  blackjack-app:
+    build: .
+    container_name: blackjack-app
+    depends_on:
+      - sqlserver
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=BlackjackDb;User Id=sa;Password=Password123!;TrustServerCertificate=True;"
+    ports:
+      - "7061:80"
+    networks:
+      - blackjack-network
+
+networks:
+  blackjack-network:
+    driver: bridge

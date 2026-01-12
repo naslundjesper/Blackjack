@@ -1,36 +1,44 @@
 using Blackjack.Data;
+using Blackjack.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC (Controllers + Views)
-builder.Services.AddControllersWithViews();
+// Kestrel konfiguration
+builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(80); });
 
-// EF Core + Azure SQL
-builder.Services.AddDbContext<BlackjackDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+// Registrera tjänster
+builder.Services.AddControllersWithViews(); // Denna räcker för både MVC och API
+
+var connString = builder.Configuration.GetConnectionString("DefaultConnection")
+                 ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
+
+builder.Services.AddDbContext<BlackjackDbContext>(options => options.UseSqlServer(connString));
+
+builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<RoundService>();
+builder.Services.AddScoped<BlackjackRuleService>();
+builder.Services.AddScoped<CardService>();
 
 var app = builder.Build();
 
-// Pipeline
-if (!app.Environment.IsDevelopment())
+// AUTOMATISK MIGRERING
+using (var scope = app.Services.CreateScope())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    var db = scope.ServiceProvider.GetRequiredService<BlackjackDbContext>();
+    for (int i = 0; i < 10; i++)
+    {
+        try { db.Database.Migrate(); break; }
+        catch { Console.WriteLine("Väntar på SQL Server..."); Thread.Sleep(3000); }
+    }
 }
 
-app.UseHttpsRedirection();
 
-//Static files (wwwroot)
 app.UseStaticFiles();
-
 app.UseRouting();
 
-app.UseAuthorization();
-
-//MVC routing
+// Mappa rutter
+app.MapControllers(); 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

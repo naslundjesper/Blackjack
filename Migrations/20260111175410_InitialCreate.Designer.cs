@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blackjack.Migrations
 {
     [DbContext(typeof(BlackjackDbContext))]
-    [Migration("20260110182127_InitDocker")]
-    partial class InitDocker
+    [Migration("20260111175410_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

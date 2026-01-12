@@ -33,6 +33,8 @@ namespace Blackjack.Migrations
                     Player1ID = table.Column<int>(type: "int", nullable: false),
                     Player2ID = table.Column<int>(type: "int", nullable: false),
                     StartHP = table.Column<int>(type: "int", nullable: false),
+                    Player1HP = table.Column<int>(type: "int", nullable: false),
+                    Player2HP = table.Column<int>(type: "int", nullable: false),
                     TurnOrder = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LobbyCode = table.Column<string>(type: "nvarchar(max)", nullable: false)

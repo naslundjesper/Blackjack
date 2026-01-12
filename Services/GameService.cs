@@ -4,20 +4,19 @@ namespace Blackjack.Services
 {
     public class GameService
     {
-        public Game CreateGame(int player1Id, int player2Id)
+        public Game CreateGame(int player1Id, int? player2Id = null)
         {
-            var game = new Game
+            return new Game
             {
                 Player1ID = player1Id,
-                Player2ID = player2Id,
+                Player2ID = player2Id, // Nu som null
                 StartHP = 100,
                 Player1HP = 100,
                 Player2HP = 100,
                 TurnOrder = player1Id,
-                Status = "InProgress"
+                Status = "Waiting",
+                LobbyCode = "TEMP"
             };
-
-            return game;
         }
     }
 }
