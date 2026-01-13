@@ -18,6 +18,10 @@
     <!-- Fullscreen background -->
     <div class="background">
 
+        <img
+            src="/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/images/cardsbg.png"
+            alt=""
+            class="background-image" />
         
         <!-- Centered content wrapper -->
         <div class="lobby-wrapper">
@@ -42,18 +46,18 @@
             <div class="lobby-window">
                 <!-- Join game -->
                 <section class="lobby-card join-game">
-                    <h2 class="card-title">Gå med i kompisens match</h2>
+                    <h2 class="card-title">Join a Game</h2>
 
                     <div class="form-group">
                         <input
                             type="text"
                             id="joinCode"
                             class="text-input"
-                            placeholder="Skriv kompisens kod" />
+                            placeholder="Enter a game code" />
                     </div>
 
                     <button class="secondary-button" onclick="joinGame()">
-                        Gå med nu
+                        Join Game
                     </button>
                 </section>
 
@@ -63,18 +67,18 @@
 
                 <!-- Create game -->
                 <section class="lobby-card create-game">
-                    <h2 class="card-title">Skapa ny match</h2>
+                    <h2 class="card-title">Create a New Game</h2>
 
                     <div class="form-group">
                         <input
                             type="text"
                             id="createCode"
                             class="text-input"
-                            placeholder="Välj en unik kod (t.ex. KALLE123)" />
+                            placeholder="Select a unique code (e.g. code123)" />
                     </div>
 
                     <button class="primary-button" onclick="createGame()">
-                        Skapa & Vänta
+                        Create Game
                     </button>
                 </section>
             </div>
