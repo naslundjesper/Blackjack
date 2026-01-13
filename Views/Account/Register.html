@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "register";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"]</title>
+
+    <!-- Page styling -->
+    <link rel="stylesheet" href="/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/css/register.css" />
+</head>
+<body>
+
+    <!-- Fullscreen background -->
+    <div class="background">
+
+        <img
+            src="/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/images/cardsbg.png"
+            alt=""
+            class="background-image" />
+        
+        <!-- Centered content wrapper -->
+        <div class="register-wrapper">
+            
+            <div class="logo">
+                <img
+                    src="/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/images/LOGO.png"
+                    alt="Blackjack Duels"
+                    class="register-logo"/>
+            </div>
+        
+
+            <!-- Welcome -->
+            <header class="register-header">
+                <h1 class="register-title">
+                    Create your account
+                </h1>
+            </header>
+
+            <div class="register-window">
+            <div class="register-card">
+                <form asp-action="register" method="post">
+                    <input type="text" name="username" placeholder="Choose a name" required /><br />
+                    <input type="password" name="password" placeholder="Choose a password" required /><br />
+                    <button type="submit">Register</button>
+                
+                
+                </form>
+                </div>
+            <div class="register-link">
+                <p style="color:red">@ViewBag.Error</p>
+                <a href="/Account/Login">Already have an account? Log in</a>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
