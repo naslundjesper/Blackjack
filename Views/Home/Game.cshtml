@@ -22,13 +22,13 @@
 
 <div id="game-container">
     <div style="text-align: center;">
-        <h2 id="status">Laddar...</h2>
+        <h2 id="status">Loading...</h2>
     </div>
 
     <div class="player-section">
         <div style="display: flex; justify-content: space-between;">
-            <span>Motståndare</span>
-            <span id="oppSum">Summa: 0</span>
+            <span id="oppName">Waiting for opponent...</span>
+            <span id="oppSum">Hand: 0</span>
         </div>
         <div class="hp-bar-container">
             <div id="oppHPBar" class="hp-bar-fill" style="width: 100%;">
@@ -43,8 +43,8 @@
 
     <div class="player-section">
         <div style="display: flex; justify-content: space-between;">
-            <span>Du</span>
-            <span id="mySum">Summa: 0</span>
+                <span id="myName">Loading...</span>
+            <span id="mySum">Sum: 0</span>
         </div>
         <div class="hp-bar-container">
             <div id="myHPBar" class="hp-bar-fill" style="width: 100%;">
@@ -109,6 +109,15 @@
     const data = await res.json();
 
     const isP1 = playerId == data.player1ID;
+
+        // Logik för att välja rätt namn
+        const myRealName = isP1 ? data.player1Name : data.player2Name;
+        const oppRealName = isP1 ? data.player2Name : data.player1Name;
+
+        // Uppdatera HTML-elementen
+        document.getElementById('myName').innerText = myRealName + " (You)";
+        document.getElementById('oppName').innerText = oppRealName;
+
     const myHP = isP1 ? data.player1HP : data.player2HP;
     const oppHP = isP1 ? data.player2HP : data.player1HP;
     const myCards = isP1 ? data.p1Cards : data.p2Cards;
@@ -118,7 +127,7 @@
 
     // Uppdatera Status och Knappar
     const isMyTurn = data.turnOrder == playerId;
-    document.getElementById('status').innerText = data.status === "Finished" ? "MATCH ÖVER" : (isMyTurn ? "DIN TUR" : "MOTSTÅNDARENS TUR");
+    document.getElementById('status').innerText = data.status === "Finished" ? "MATCH OVER" : (isMyTurn ? "Your turn" : "Opponents turn");
     document.getElementById('actions').style.display = (isMyTurn && data.status !== "Finished") ? "flex" : "none";
 
     // Rendera HP-mätare
@@ -130,8 +139,8 @@
     document.getElementById('oppHPText').innerText = oppHP + " hp";
 
     // Rendera Summor
-    document.getElementById('mySum').innerText = "Summa: " + mySum;
-    document.getElementById('oppSum').innerText = "Summa: " + oppSum;
+    document.getElementById('mySum').innerText = "Sum: " + mySum;
+    document.getElementById('oppSum').innerText = "Sum: " + oppSum;
 
     // Rendera Korten grafiskt
     renderCards('myCards', myCards);

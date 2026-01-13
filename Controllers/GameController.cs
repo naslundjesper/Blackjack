@@ -84,6 +84,8 @@ namespace Blackjack.Controllers
         public async Task<IActionResult> GetState(int id)
         {
             var game = await _context.Games
+                .Include(g => g.Player1)
+                .Include(g => g.Player2)
                 .Include(g => g.Rounds).ThenInclude(r => r.PlayerHands)
                 .FirstOrDefaultAsync(g => g.GameID == id);
 
@@ -98,6 +100,8 @@ namespace Blackjack.Controllers
                 status = game.Status,
                 player1HP = game.Player1HP,
                 player2HP = game.Player2HP,
+                player1Name = game.Player1?.Username ?? "Väntar...",
+                player2Name = game.Player2?.Username ?? "Väntar...", 
                 p1Sum = p1Hand?.HandValue ?? 0,
                 p2Sum = p2Hand?.HandValue ?? 0,
                 p1Cards = p1Hand?.DrawnCards ?? new List<int>(),
