@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "Lobby";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"]</title>
+
+    <!-- Page styling -->
+    <link rel="stylesheet" href="/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/css/lobby.css" />
+</head>
+<body>
+
+    <!-- Fullscreen background -->
+    <div class="background">
+
+        
+        <!-- Centered content wrapper -->
+        <div class="lobby-wrapper">
+
+            <div class="logo">
+                <img
+                    src="/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/images/LOGO.png"
+                    alt="Blackjack Duels"
+                    class="lobby-logo" />
+            </div>
+        
+
+            <!-- Welcome -->
+            <header class="lobby-header">
+                <h1 class="lobby-title">
+                    Välkommen
+                    <span class="player-name">@ViewBag.PlayerName</span>
+                </h1>
+            </header>
+
+        
+            <div class="lobby-window">
+                <!-- Join game -->
+                <section class="lobby-card join-game">
+                    <h2 class="card-title">Gå med i kompisens match</h2>
+
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            id="joinCode"
+                            class="text-input"
+                            placeholder="Skriv kompisens kod" />
+                    </div>
+
+                    <button class="secondary-button" onclick="joinGame()">
+                        Gå med nu
+                    </button>
+                </section>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <!-- Create game -->
+                <section class="lobby-card create-game">
+                    <h2 class="card-title">Skapa ny match</h2>
+
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            id="createCode"
+                            class="text-input"
+                            placeholder="Välj en unik kod (t.ex. KALLE123)" />
+                    </div>
+
+                    <button class="primary-button" onclick="createGame()">
+                        Skapa & Vänta
+                    </button>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        async function createGame() {
+            const code = document.getElementById('createCode').value;
+            if (!code) return alert("Du måste välja en kod!");
+
+            const name = "@ViewBag.PlayerName";
+            const res = await fetch(`/api/game/setup?p1Name=${encodeURIComponent(name)}&lobbyCode=${encodeURIComponent(code)}`, {
+                method: 'POST'
+            });
+
+           if (res.ok) {
+                const data = await res.json();
+               window.location.href = `/Home/Game?gameId=${data.gameID}`;
+            } else {
+                const err = await res.text();
+                alert("Fel: " + err);
+            }
+        }
+
+        async function joinGame() {
+            const code = document.getElementById('joinCode').value;
+            const pId = "@ViewBag.PlayerID"; // Viktigt: Hämtas från cookies via HomeController
+
+            if (!code) return alert("Skriv in en kod!");
+
+            // Skickar med både code och playerId som query-parametrar för att matcha controllern
+            const res = await fetch(`/api/game/join?code=${encodeURIComponent(code)}&playerId=${pId}`, {
+                method: 'POST'
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                window.location.href = `/Home/Game?gameId=${data.gameID}`;
+            } else {
+                const err = await res.text();
+                alert("Kunde inte gå med: " + err);
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+
+}
+
+.background {
+    height: 100vh;
+    background:
+        url("/Users/Studier/Plugg/Databasteknik/Project/Blackjack/wwwroot/images/cardsbg.png"),
+        radial-gradient(circle at top, #6f8f55, #1f3b1f);
+    
+
+    background-size:
+        cover,
+        cover;
+
+    background-position:
+        center,
+        center;
+
+    background-repeat:
+        no-repeat,
+        no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* logga */
+.lobby-wrapper {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.lobby-logo {
+
+    width: 500px;
+}
+
+/* welcome text */
+.lobby-header {
+    margin-bottom: 18px;
+}
+
+.lobby-title {
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.player-name {
+    font-weight: 600;
+}
+
+/* lobby window */
+
+.lobby-window {
+    width: 100%;
+    padding: 26px;
+    border-radius: 22px;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.223),
+        rgba(0, 0, 0, 0.456)
+    );
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 30px 60px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* lobby card*/
+.lobby-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* titles */
+.card-title {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.85;
+}
+
+/* inputs */
+.text-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+}
+
+/* button */
+.primary-button,
+.secondary-button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+    transform: translateY(-1px);
+}
+
+/* join (GREEN) */
+.secondary-button {
+    background: linear-gradient(180deg, #7fd266, #3b7f2b);
+    color: white;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* create (ORANGE) */
+.primary-button {
+    background: linear-gradient(180deg, #ffd36a, #ff9f1a);
+    color: #2a1a00;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.65),
+        0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+/*  divider */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.6;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+    font-size: 12px;
+    letter-spacing: 1px;
+}
