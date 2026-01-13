@@ -1,0 +1,194 @@
+﻿/* ===== Reset & base ===== */
+* {
+box-sizing: border-box;
+font-family: "Segoe UI", sans-serif;
+color: rgb(250, 254, 246);
+}
+
+body {
+margin: 0;
+height: 100vh;
+}
+
+/* ===== Background ===== */
+#game-container {
+position: relative;
+height: 100vh;
+overflow: hidden;
+padding: 40px;
+
+background: radial-gradient(circle at top, #6f8f55, #1f3b1f);
+
+display: block;
+flex-direction: column;
+justify-content: space-between;
+}
+
+/* ===== Logo ===== */
+.logo {
+position: absolute;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 1;
+}
+.lobby-logo {
+
+width: 500px;
+filter: drop-shadow(0 5px 2px rgba(0,0,0,0.4));
+}
+
+/* ===== Status ===== */
+#status {
+margin-top: 140px;
+text-align: center;
+font-size: 22px;
+letter-spacing: 2px;
+opacity: 0.9;
+filter: drop-shadow(0 2px 1px rgba(0,0,0,0.4));
+}
+
+/* ===== Player sections ===== */
+.player-section {
+width: 100%;
+max-width: 1100px;
+margin: 0 auto;
+}
+
+/* Header row */
+.player-section span {
+font-size: 20px;
+letter-spacing: 1px;
+filter: drop-shadow(0 2px 1px rgba(0,0,0,0.4));
+}
+
+/* ===== HP text ===== */
+.hp-text {
+position: absolute;
+inset: 0; 
+display: flex;
+align-items: center;
+justify-content: left;
+margin-left: 10px;
+font-size: 16px;
+font-weight: bold;
+color: #ffedede6;
+letter-spacing: 1px;
+filter: drop-shadow(0 2px 1px rgba(0,0,0,0.4));
+}
+/* ===== HP Bars ===== */
+.hp-bar-container {
+position: relative; 
+width: 100%;
+height: 24px;
+border-radius: 10px;
+background: rgba(255,255,255,0.15);
+margin: 10px 0 15px;
+overflow: hidden;
+outline: rgb(234, 67, 67) solid 1px;
+
+}
+
+.hp-bar-fill {
+height: 100%;
+box-shadow: inset 0 0 7px rgba(77, 8, 8, 0.371);
+background: linear-gradient(to right, #ab1818, #e72424);
+transition: width 0.4s ease;
+}
+
+
+
+/* ===== Cards ===== */
+.hand {
+display: block;
+gap: 14px;
+min-height: 150px;
+}
+
+/* Single card */
+.card {
+width: 90px;
+height: 130px;
+background: white;
+border-radius: 8px;
+padding: 6px;
+
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+
+font-size: 22px;
+font-weight: bold;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,0.6),
+inset 0 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* Card colors */
+.card.red {
+color: #c40000;
+}
+
+.card.black {
+color: #000;
+}
+
+/* ===== Controls ===== */
+.controls {
+display: flex;
+justify-content: center;
+gap: 40px;
+margin-bottom: 60px;
+}
+
+/* Base button */
+.btn {
+width: 200px;
+height: 70px;
+border-radius: 16px;
+border: none;
+
+font-size: 26px;
+letter-spacing: 2px;
+font-weight: bold;
+color: white;
+
+cursor: pointer;
+
+box-shadow:
+0 12px 25px rgba(0,0,0,0.6),
+inset 0 0 0 2px rgba(255,255,255,0.2);
+
+transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn:active {
+transform: translateY(3px);
+box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+filter: brightness(1.1);
+}
+
+/* HIT */
+.btn-hit {
+background: linear-gradient(#7ac943, #4c8f1c);
+box-shadow:
+0 0 25px rgba(122,201,67,0.6),
+0 12px 25px rgba(0,0,0,0.6);
+}
+
+/* STAND */
+.btn-stand {
+background: linear-gradient(#e63b2e, #b0120a);
+box-shadow:
+0 0 25px rgba(230,59,46,0.6),
+0 12px 25px rgba(0,0,0,0.6);
+}
+
+/* ===== Divider ===== */
+hr {
+border: none;
+height: 1px;
+background: rgba(255,255,255,0.15);
+margin: 30px 0;
+}
